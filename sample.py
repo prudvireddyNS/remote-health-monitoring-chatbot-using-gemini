@@ -1,0 +1,2 @@
+import result
+print("nn")
