@@ -1,2 +1,3 @@
 # Chatbot-for-Remote-HealthMonitoring-using-GEMINI
-pip install requests  pyttsx3  -q -U google-generativeai  speech_recognition  vertexai  pyaudio  mysql-connector-python
+pip install requests  pyttsx3  speechRecognition  speechRecognition  vertexai  pyaudio  mysql-connector-python
+pip install -q -U google-generativeai  
