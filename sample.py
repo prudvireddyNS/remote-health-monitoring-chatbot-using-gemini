@@ -1,2 +1,0 @@
-import result
-print("nn")

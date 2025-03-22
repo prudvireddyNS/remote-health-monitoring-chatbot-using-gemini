@@ -1,10 +1,30 @@
-﻿shiva,01-10-2024,red eyes,qq
-sam,01-10-2024,sore mouth,qq
-ravi ,02-10-2024,skin itching,qq
-charan,03-10-2024,cough,qq
-Kiran ,04-10-2024,cold,qq
-Nkhil,05-10-2024,fever,qq
-Varun,06-10-2024,fever,qq
-Anil,07-10-2024,throat pain,qq
-Arjun,08-10-2024,red eyes,qq
-Amulya,09-10-2024,sore mouth,qq
+patient_id,patient_name,joining_date,discharge_date,symptoms,prev_diagnosis,new_symptoms,latest_diagnosis
+1,shiva,2025-03-22,,red eyes,,,Unable to process request. Please try again.
+2,shiva,2025-03-22,,red eyes,,,Unable to process request. Please try again.
+3,ravi,2025-03-22,,red eyes,,,"Okay, I cannot provide medical advice. Recommending specific medications requires a diagnosis from a doctor or qualified healthcare professional. Red eyes can be caused by various issues, from allergies to infections, and the appropriate treatment depends on the underlying cause.
+
+**Therefore, I strongly recommend consulting with an eye doctor or your primary care physician for a proper diagnosis and personalized treatment plan.** They can examine your eyes, determine the cause of the redness, and prescribe the most appropriate medication for your specific condition.
+"
+4,ravi,2025-03-22,,red eyes,"I am an AI and cannot provide medical advice. Red eyes can be caused by various conditions, some serious. It is essential to consult with a doctor or ophthalmologist for a proper diagnosis and treatment plan. They can determine the underlying cause and recommend the most appropriate medication or other interventions.
+",hay hay how r u,"I am an AI and cannot provide medical advice. It is essential to consult a doctor or other qualified healthcare professional for any health concerns or before making any decisions related to your health or treatment. They can properly diagnose your condition and recommend the most appropriate course of action.
+"
+5,ravi,2025-03-22,,hi hi how are you,,,"I am programmed to be a harmless AI assistant. I am not qualified to provide medical advice. It is important to consult with a qualified healthcare professional for any health concerns or before making any decisions related to your health or treatment. They can properly diagnose your condition and recommend the best course of action.
+"
+6,ravi,2025-03-22,,eyes redness,,,"Okay, I can analyze the symptom of eye redness from a medical textbook perspective. Please remember that this information is for educational purposes only and does not constitute medical advice. Always consult with a qualified healthcare professional for diagnosis and treatment.
+
+Here are three possible conditions that can manifest with eye redness, along with two common therapeutic approaches for each:
+
+1.  **Conjunctivitis (Pinkeye):**
+    *   **Antibiotic Eye Drops/Ointment:** (For bacterial conjunctivitis) Topical antibiotics such as erythromycin or polymyxin B/trimethoprim are commonly prescribed to combat bacterial infections.
+    *   **Artificial Tears:** (For viral or allergic conjunctivitis) Lubricating eye drops can help soothe irritation, reduce redness, and flush out allergens or irritants.
+
+2.  **Subconjunctival Hemorrhage:**
+    *   **Observation:** In most cases, subconjunctival hemorrhages resolve on their own within 1-3 weeks without specific treatment.
+    *   **Artificial Tears:** Can be used for comfort to alleviate any mild irritation.
+
+3.  **Iritis (Anterior Uveitis):**
+    *   **Topical Corticosteroids:** Eye drops containing corticosteroids (e.g., prednisolone acetate) are often prescribed to reduce inflammation.
+    *   **Pupil-Dilating Eye Drops (Cycloplegics):** Medications like atropine or cyclopentolate are used to dilate the pupil, which can help relieve pain and prevent adhesions.
+
+**Disclaimer:** This information is intended for general knowledge and informational purposes only, and does not constitute medical advice. It is essential to consult with a qualified healthcare professional for any health concerns or before making any decisions related to your health or treatment. Self-treating can be dangerous, and a proper diagnosis and personalized treatment plan are crucial.
+"
