@@ -43,8 +43,9 @@ class AIService:
             response = model.generate_content(full_prompt)
             return response.text
         except Exception as e:
-            print(f"Error in Gemini API call: {e}")
-            return "Unable to process request. Please try again."
+            # print(f"Error in Gemini API call: {e}")
+            # return "Unable to process request. Please try again."
+            raise
 
     def get_diagnosis(self, symptoms):
         """Get diagnosis suggestions based on symptoms using Gemini API"""
