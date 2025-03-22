@@ -17,21 +17,27 @@ class SpeechService:
             
         self.recognizer = None
         self.engine = None
+        self.speech_available = False
+        self.tts_available = False
+        
         try:
             # Initialize speech recognition
             self.recognizer = sr.Recognizer()
             # Test microphone availability
             with sr.Microphone() as source:
                 self.recognizer.adjust_for_ambient_noise(source, duration=1)
-            
+            self.speech_available = True
+        except Exception as e:
+            print(f"Speech recognition not available: {e}")
+        
+        try:
             # Initialize text-to-speech engine with proper cleanup
             self._init_tts_engine()
-            self._initialized = True
-            
+            self.tts_available = True
         except Exception as e:
-            self._cleanup()
-            print(f"Error initializing speech services: {e}")
-            raise
+            print(f"Text-to-speech not available: {e}")
+        
+        self._initialized = True
     
     def _init_tts_engine(self):
         """Initialize text-to-speech engine with proper error handling"""

@@ -24,8 +24,9 @@ st.set_page_config(
 @st.cache_resource
 def init_services():
     services = {'db': None, 'ai': None, 'speech': None}
+    
+    # Initialize critical services first (database and AI)
     try:
-        # Initialize database
         services['db'] = Database()
         st.success("✓ Database service initialized successfully")
     except Exception as e:
@@ -33,26 +34,35 @@ def init_services():
         return None, None, None
 
     try:
-        # Initialize AI service
         services['ai'] = AIService()
         st.success("✓ AI service initialized successfully")
     except Exception as e:
         st.error(f"Failed to initialize AI service: {e}")
         return None, None, None
 
+    # Initialize optional speech service
     try:
-        # Initialize speech service
         services['speech'] = SpeechService()
-        st.success("✓ Speech service initialized successfully")
+        if services['speech'].speech_available and services['speech'].tts_available:
+            st.success("✓ Speech service initialized successfully")
+        else:
+            st.warning("⚠ Speech service initialized with limited functionality")
+            if not services['speech'].speech_available:
+                st.info("ℹ Voice input is not available")
+            if not services['speech'].tts_available:
+                st.info("ℹ Text-to-speech is not available")
     except Exception as e:
-        st.error(f"Failed to initialize speech service: {e}")
-        return None, None, None
+        st.warning(f"⚠ Speech service not available: {e}")
+        services['speech'] = None
 
-    return services['db'], services['ai'], services['speech']
+    # Continue if critical services are available
+    if services['db'] and services['ai']:
+        return services['db'], services['ai'], services['speech']
+    return None, None, None
 
 services = init_services()
-if any(service is None for service in services):
-    st.error("Failed to initialize services. Please check your system configuration.")
+if not services[0] or not services[1]:  # Check only critical services (db and ai)
+    st.error("Failed to initialize critical services. Please check your system configuration.")
     st.stop()
 
 db, ai, speech = services
@@ -91,21 +101,22 @@ if page == "Home":
 elif page == "New Patient":
     st.title("New Patient Registration")
     
-    # Voice input section
-    col1, col2 = st.columns(2)
-    with col1:
-        use_voice = st.checkbox("Use voice input for symptoms")
-    
-    if use_voice:
-        with col2:
-            if st.button("Start Voice Input", key="new_patient_voice_input"):
-                st.info("Listening... Please speak clearly.")
-                voice_text = speech.listen()
-                if voice_text and not voice_text.startswith("Sorry") and not voice_text.startswith("Could not") and not voice_text.startswith("Error"):
-                    st.session_state['voice_symptoms'] = voice_text
-                    st.success(f"Recorded: {voice_text}")
-                else:
-                    st.error(f"Error: {voice_text}")
+    # Voice input section - only show if speech recognition is available
+    if speech and speech.speech_available:
+        col1, col2 = st.columns(2)
+        with col1:
+            use_voice = st.checkbox("Use voice input for symptoms")
+        
+        if use_voice:
+            with col2:
+                if st.button("Start Voice Input", key="new_patient_voice_input"):
+                    st.info("Listening... Please speak clearly.")
+                    voice_text = speech.listen()
+                    if voice_text and not voice_text.startswith("Sorry") and not voice_text.startswith("Could not") and not voice_text.startswith("Error"):
+                        st.session_state['voice_symptoms'] = voice_text
+                        st.success(f"Recorded: {voice_text}")
+                    else:
+                        st.error(f"Error: {voice_text}")
     
     with st.form("new_patient_form"):
         name = st.text_input("Full Name")
@@ -116,7 +127,8 @@ elif page == "New Patient":
         else:
             symptoms = st.text_area("Please describe your symptoms in detail")
         
-        read_aloud = st.checkbox("Read diagnosis aloud")
+        # Only show text-to-speech option if available
+        read_aloud = st.checkbox("Read diagnosis aloud") if speech and speech.tts_available else False
         submit_button = st.form_submit_button("Register & Get Diagnosis")
     
     if submit_button and name and symptoms:
