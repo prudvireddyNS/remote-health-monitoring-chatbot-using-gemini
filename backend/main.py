@@ -23,10 +23,11 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://remote-health-monitoring-chatbot-using-gemini.vercel.app/", "https://remote-health-monitoring-chatb-git-c3822c-vemu-project-b4a5aba8.vercel.app/", "https://remote-health-monitoring-chatbot-using-gemini-a6bq8davj.vercel.app/"],  # In production, replace with specific origins
+    allow_origins=["https://remote-health-monitoring-chatbot-using-gemini.vercel.app", "https://remote-health-monitoring-chatb-git-c3822c-vemu-project-b4a5aba8.vercel.app", "https://remote-health-monitoring-chatbot-using-gemini-a6bq8davj.vercel.app", "https://remote-health-monitoring-chatbot-using-ge-vemu-project-b4a5aba8.vercel.app"],  # In production, replace with specific origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # Initialize services
