@@ -1,4 +1,0 @@
-patient_id,patient_name,joining_date,symptoms,prev_diagnosis,new_symptoms,latest_diagnosis
-1,shiv,2024-10-01,"sore throat , red eyes","**Sore Throat:** Ibuprofen (Advil)
-**Red Eyes:** Visine (tetrahydrozoline)",red skin,"* **Calamine lotion:** Soothes itching and inflammation.
-* **Hydrocortisone cream:** Reduces inflammation and redness."
