@@ -173,25 +173,25 @@ elif page == "New Patient":
 elif page == "Returning Patient":
     st.title("Returning Patient")
     
-    # Input method selection
-    input_method = st.radio("Identify yourself by:", ["Patient ID", "Name"])
+    # # Input method selection
+    # input_method = st.radio("Identify yourself by:", ["Patient ID", "Name"])
     
-    if input_method == "Patient ID":
-        patient_id = st.text_input("Enter your Patient ID")
-        if patient_id and patient_id.isdigit():
-            patient_name = db.get_patient_name(patient_id)
-            if patient_name:
-                st.success(f"Welcome back, {patient_name}!")
-                st.session_state['current_patient_id'] = patient_id
-                st.session_state['current_patient_name'] = patient_name
-            elif patient_id:
-                st.error("Patient ID not found. Please check and try again.")
-    else:  # By Name
-        patient_name = st.text_input("Enter your full name")
+    # if input_method == "Patient ID":
+    patient_id = st.text_input("Enter your Patient ID")
+    if patient_id and patient_id.isdigit():
+        patient_name = db.get_patient_name(patient_id)
         if patient_name:
-            # This would need a new method in the Database class to search by name
-            # For now, we'll just show a message
-            st.warning("Searching by name is not fully implemented. Please use your Patient ID if possible.")
+            st.success(f"Welcome back, {patient_name}!")
+            st.session_state['current_patient_id'] = patient_id
+            st.session_state['current_patient_name'] = patient_name
+        elif patient_id:
+            st.error("Patient ID not found. Please check and try again.")
+    # else:  # By Name
+    #     patient_name = st.text_input("Enter your full name")
+    #     if patient_name:
+    #         # This would need a new method in the Database class to search by name
+    #         # For now, we'll just show a message
+    #         st.warning("Searching by name is not fully implemented. Please use your Patient ID if possible.")
     
     # If patient is identified
     if 'current_patient_id' in st.session_state:
