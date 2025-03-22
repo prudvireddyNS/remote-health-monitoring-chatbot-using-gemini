@@ -1,12 +1,12 @@
 import os
 import google.generativeai as genai
-from vertexai.generative_models import (
-    Content,
-    GenerationConfig,
-    GenerativeModel,
-    Part,
-    Tool,
-)
+# from vertexai.generative_models import (
+#     Content,
+#     GenerationConfig,
+#     GenerativeModel,
+#     Part,
+#     Tool,
+# )
 
 class AIService:
     def __init__(self, api_key=None):
