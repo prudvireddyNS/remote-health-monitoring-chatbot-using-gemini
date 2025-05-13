@@ -3,6 +3,7 @@ from typing import Optional, List
 from datetime import date
 from sqlalchemy import Column, Integer, String, Date, Text
 from backend.database import Base
+from fastapi import UploadFile, File
 
 # SQLAlchemy Models
 class Patient(Base):
@@ -17,6 +18,8 @@ class Patient(Base):
     prev_diagnosis = Column(Text, nullable=True)
     new_symptoms = Column(String(150), nullable=True)
     latest_diagnosis = Column(Text, nullable=True)
+    medicine_suggestions = Column(Text, nullable=True)  # Added for medicine suggestions
+    image_url = Column(String(255), nullable=True)
     
     def __repr__(self):
         return f"<Patient(id={self.patient_id}, name='{self.patient_name}')"
@@ -29,11 +32,18 @@ class PatientBase(BaseModel):
 
 class PatientCreate(PatientBase):
     """Pydantic model for creating a new patient"""
-    pass
+    image_url: Optional[str] = None
 
 class PatientUpdate(BaseModel):
     """Pydantic model for updating patient symptoms"""
     new_symptoms: str
+    image_url: Optional[str] = None
+
+class ReturningPatientRequest(BaseModel):
+    """Pydantic model for returning patient"""
+    patient_id: int
+    symptoms: str
+    image_url: Optional[str] = None
 
 class PatientResponse(PatientBase):
     """Pydantic model for patient response"""
@@ -43,9 +53,10 @@ class PatientResponse(PatientBase):
     prev_diagnosis: Optional[str] = None
     new_symptoms: Optional[str] = None
     latest_diagnosis: Optional[str] = None
+    medicine_suggestions: Optional[str] = None  # Added for medicine suggestions
+    image_url: Optional[str] = None
     
     class Config:
-        orm_mode = True
         from_attributes = True
 
 class DiagnosisResponse(BaseModel):

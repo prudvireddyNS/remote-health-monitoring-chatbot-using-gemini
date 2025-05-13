@@ -6,29 +6,62 @@ export default function TextToSpeech({ text }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [utterance, setUtterance] = useState(null);
-  const [voice, setVoice] = useState(null);
+  const [voices, setVoices] = useState([]);
+  const [femaleVoice, setFemaleVoice] = useState(null);
+  const [isFemaleVoice, setIsFemaleVoice] = useState(true);  // Add this line
 
   useEffect(() => {
     const synth = window.speechSynthesis;
+    
+    // Force voices to load
+    synth.getVoices();
+
+    const loadVoices = () => {
+      const availableVoices = synth.getVoices();
+      const englishVoices = availableVoices.filter(voice => voice.lang.includes('en'));
+      setVoices(englishVoices);
+      
+      // Pre-select a default voice
+      const defaultVoice = englishVoices.find(voice => 
+        voice.name.toLowerCase().includes('female')
+      );
+      if (defaultVoice) {
+        setIsFemaleVoice(true);
+      }
+    };
+
+    loadVoices();
+    
+    // Handle voice loading in Chrome
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Cleanup
+    return () => {
+      synth.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!text || voices.length === 0) return;
+    
+    const synth = window.speechSynthesis;
     const u = new SpeechSynthesisUtterance(text);
     
-    // Get available voices and set a female English voice
-    const voices = synth.getVoices();
-    // Try to find a female English voice
-    const femaleVoice = voices.find(voice => 
-      voice.lang.includes('en') && voice.name.toLowerCase().includes('female')
-    ) || // Fallback to Microsoft Zira or any other female voice
-    voices.find(voice => 
-      voice.name.includes('Zira') || voice.name.toLowerCase().includes('female')
-    ) || // Final fallback to any English voice
-    voices.find(voice => voice.lang.includes('en'));
+    // Find female voice
+    let selectedVoice = voices.find(voice => 
+      voice.name.toLowerCase().includes('female')
+    );
     
-    if (femaleVoice) {
-      u.voice = femaleVoice;
-      // Set a slightly higher pitch for more feminine voice
-      u.pitch = 1.2;
-      u.rate = 1.0;
+    // Fallback to any English voice if female voice not found
+    if (!selectedVoice) {
+      selectedVoice = voices[0];
     }
+    
+    u.voice = selectedVoice;
+    u.pitch = 1.2; // Higher pitch for female voice
+    u.rate = 1.0;
     
     u.onend = () => {
       setIsSpeaking(false);
@@ -36,11 +69,7 @@ export default function TextToSpeech({ text }) {
     };
 
     setUtterance(u);
-    
-    return () => {
-      synth.cancel();
-    };
-  }, [text]);
+  }, [text, voices, isFemaleVoice]);
 
   const toggleSpeech = () => {
     const synth = window.speechSynthesis;
@@ -54,10 +83,17 @@ export default function TextToSpeech({ text }) {
         setIsPaused(true);
       }
     } else {
-      synth.cancel();
-      synth.speak(utterance);
-      setIsSpeaking(true);
-      setIsPaused(false);
+      synth.cancel(); // Clear any existing speech
+      if (utterance) {
+        // Ensure voice is set before speaking
+        const currentVoice = voices.find(voice => 
+          voice.name.toLowerCase().includes('female')
+        ) || voices[0];
+        utterance.voice = currentVoice;
+        synth.speak(utterance);
+        setIsSpeaking(true);
+        setIsPaused(false);
+      }
     }
   };
 
@@ -91,6 +127,8 @@ export default function TextToSpeech({ text }) {
           </>
         )}
       </button>
+
+
       
       {isSpeaking && (
         <button

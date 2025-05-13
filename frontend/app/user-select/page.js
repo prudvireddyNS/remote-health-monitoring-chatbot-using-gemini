@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function UserSelect() {
@@ -7,25 +9,25 @@ export default function UserSelect() {
         <h2 className="text-3xl font-bold mb-8">Choose Your Path</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
-          <div className="border rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <h3 className="text-2xl font-semibold mb-4">New Patient</h3>
-            <p className="mb-6">First time here? Register and get started with your AI-powered health monitoring journey.</p>
-            <Link href="/new-patient">
+          <Link href="/new-patient" className="block">
+            <div className="border rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
+              <h3 className="text-2xl font-semibold mb-4">New Patient</h3>
+              <p className="mb-6">First time here? Register and get started with your AI-powered health monitoring journey.</p>
               <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
                 Register Now
               </button>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
-          <div className="border rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <h3 className="text-2xl font-semibold mb-4">Returning Patient</h3>
-            <p className="mb-6">Welcome back! Continue your health monitoring journey.</p>
-            <Link href="/returning-patient">
+          <Link href="/returning-patient" className="block">
+            <div className="border rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
+              <h3 className="text-2xl font-semibold mb-4">Returning Patient</h3>
+              <p className="mb-6">Welcome back! Continue your health monitoring journey.</p>
               <button className="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors">
                 Login
               </button>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
